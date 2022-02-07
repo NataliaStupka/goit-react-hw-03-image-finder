@@ -1,4 +1,12 @@
+- НЕ ЗАБЫТЬ ПРО ДЕПЛОЙ И ТИПЫ ПРОПОВ
 - стилизация styled-components
+
+- Регистрация на Pixabay. My API key: 24451783-36fc53d78d658727e466a2b4b
+
+  URL-строка HTTP-запроса.
+  https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
+
+<!-- ------------------------------------------- -->
 
 # Getting Started with Create React App
 
