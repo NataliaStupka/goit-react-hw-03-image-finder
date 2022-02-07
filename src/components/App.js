@@ -1,9 +1,11 @@
-function App() {
-  return (
-    <div>
-      <h1>fgfgfggfgfgg</h1>
-    </div>
-  );
+import React, { Component } from 'react';
+
+class App extends Component {
+  state = {};
+
+  render() {
+    return <div>App</div>;
+  }
 }
 
 export default App;
