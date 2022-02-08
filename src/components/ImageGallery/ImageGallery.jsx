@@ -10,22 +10,23 @@ const Status = {
 
 export default class ImageGallery extends Component {
   state = {
-    card: {},
+    image: {},
     error: null,
     status: Status.IDLE,
   };
 
   componentDidMount() {
     const API_Key = '24451783-36fc53d78d658727e466a2b4b';
+    const BASE_URL = 'https://pixabay.com'
     fetch(
-      `https://pixabay.com/api/?q=cat&page=1&key=${API_Key}&image_type=photo&orientation=horizontal&per_page=12`
+      `${BASE_URL}/api/?q=cat&page=1&key=${API_Key}&image_type=photo&orientation=horizontal&per_page=12`
     )
       .then(res => res.json())
       .then(console.log);
   }
 
   render() {
-    return <div>{this.state.card && <div>Card image</div>}</div>;
+    return <div>{this.state.card && <div>{this.props.imageName}</div>}</div>;
   }
 }
 
