@@ -10,36 +10,63 @@ const Status = {
 
 export default class ImageGallery extends Component {
   state = {
-    image: {},
-    error: null,
+    image: '',
+   
     status: Status.IDLE,
   };
 
-  componentDidMount() {
-    const API_Key = '24451783-36fc53d78d658727e466a2b4b';
-    const BASE_URL = 'https://pixabay.com';
-    fetch(
-      `${BASE_URL}/api/?q=cat&page=1&key=${API_Key}&image_type=photo&orientation=horizontal&per_page=12`
-    )
-      .then(res => res.json())
-      .then(console.log);
-  }
+  // componentDidMount() {
+  //   const API_Key = '24451783-36fc53d78d658727e466a2b4b';
+  //   const BASE_URL = 'https://pixabay.com';
+  //   fetch(
+  //     `${BASE_URL}/api/?q=cat&page=1&key=${API_Key}&image_type=photo&orientation=horizontal&per_page=12`
+  //   )
+  //     .then(res => res.json())
+  //     .then(image => this.setState({ image }))
+  //   console.log('хер знает что ???', this.state.image)
+  // }
+
+
 
   render() {
     return (
       <div>
-        {this.state.card && (
+        
           <div>
-            {this.props.imageName}
-            <ul class="gallery">
+          {this.props.imageName}
+          <img src="" alt=""></img>
+
+            <ul className="gallery">
               <li> Набор li с изображениями </li>
             </ul>
           </div>
-        )}
+     
       </div>
     );
   }
+
+
+
 }
+
+ 
+  // render() {
+  //   return (
+  //     <div>
+  //       {this.state.card && (
+  //         <div>
+  //           {this.props.imageName}
+  //           <ul className="gallery">
+  //             <li> Набор li с изображениями </li>
+  //           </ul>
+  //         </div>
+  //     )}
+  //     </div>
+  //   );
+  // }
+
+{/*      */}
+
 
 // приходит с бека
 // [{id: 2536662, pageURL: "https://pixabay.com/photos/cat-flower-kitten-stone-pet-2536662/",…},…]

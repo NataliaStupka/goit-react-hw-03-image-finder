@@ -28,7 +28,9 @@ export default class Searchbar extends Component {
     return (
       <header className="searchbar">
         <form onSubmit={this.handleSubmit} className="form">
-          <button type="submit" className="button">
+          <button
+            type="submit"
+            className="button">
             {/* <span className="button-label">Search</span> */}
             <BiSearchAlt2 />
           </button>
