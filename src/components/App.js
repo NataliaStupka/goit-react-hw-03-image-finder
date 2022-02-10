@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchImages } from '../api/api';
+import API from '../api/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 
@@ -14,12 +14,16 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevState.imageName;
     const nextName = this.state.imageName;
-    // console.log('prevName', prevName)
-    // console.log('nextName',  nextName)
+    // console.log('prevName', prevName);
+    // console.log('nextName', nextName);
 
     //проверка, что бы не пошло постоянное обновление
     if (prevName !== nextName) {
-      fetchImages(this.state.imageName).then(image => this.setState({ image }));
+      API.fetchImages(nextName).then(({ hits }) => {
+        const images = hits.map(({ id, webformatURL, largeImageURL, tags }) => {
+          return { id, webformatURL, largeImageURL, tags };
+        });
+      });
     }
   }
 
@@ -33,16 +37,14 @@ class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
-
-        {/* ---------delete after--- */}
-        <div>
-          {this.state.imageName}
-          <img src="" alt=""></img>
-
-          <ul className="gallery">
-            <li> Набор li с изображениями </li>
+        {/* -----delete after */}
+        {this.state.images && (
+          <ul>
+            <li>
+              <img src={this.state.images.hits[0].webformatURL} />
+            </li>
           </ul>
-        </div>
+        )}
 
         {/* ------------ */}
 

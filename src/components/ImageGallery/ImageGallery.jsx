@@ -1,5 +1,6 @@
 //Список карточек изображений
 import { Component } from 'react';
+import ImagesList from '../ImageGalleryItem/ImageGalleryItem';
 
 const Status = {
   IDLE: 'idle',
@@ -11,62 +12,38 @@ const Status = {
 export default class ImageGallery extends Component {
   state = {
     image: '',
-   
+
     status: Status.IDLE,
   };
-
-  // componentDidMount() {
-  //   const API_Key = '24451783-36fc53d78d658727e466a2b4b';
-  //   const BASE_URL = 'https://pixabay.com';
-  //   fetch(
-  //     `${BASE_URL}/api/?q=cat&page=1&key=${API_Key}&image_type=photo&orientation=horizontal&per_page=12`
-  //   )
-  //     .then(res => res.json())
-  //     .then(image => this.setState({ image }))
-  //   console.log('хер знает что ???', this.state.image)
-  // }
-
-
 
   render() {
     return (
       <div>
-        
-          <div>
+        <div>
           {this.props.imageName}
           <img src="" alt=""></img>
 
-            <ul className="gallery">
-              <li> Набор li с изображениями </li>
-            </ul>
-          </div>
-     
+          <ul className="gallery">{/* <ImagesList images={ }/> */}</ul>
+        </div>
       </div>
     );
   }
-
-
-
 }
 
- 
-  // render() {
-  //   return (
-  //     <div>
-  //       {this.state.card && (
-  //         <div>
-  //           {this.props.imageName}
-  //           <ul className="gallery">
-  //             <li> Набор li с изображениями </li>
-  //           </ul>
-  //         </div>
-  //     )}
-  //     </div>
-  //   );
-  // }
-
-{/*      */}
-
+// render() {
+//   return (
+//     <div>
+//       {this.state.card && (
+//         <div>
+//           {this.props.imageName}
+//           <ul className="gallery">
+//             <li> Набор li с изображениями </li>
+//           </ul>
+//         </div>
+//     )}
+//     </div>
+//   );
+// }
 
 // приходит с бека
 // [{id: 2536662, pageURL: "https://pixabay.com/photos/cat-flower-kitten-stone-pet-2536662/",…},…]
