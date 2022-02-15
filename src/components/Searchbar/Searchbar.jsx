@@ -14,17 +14,21 @@ export default class Searchbar extends Component {
   handleSubmit = event => {
     event.preventDefault(); //нет автоматической перезагрузке
 
+    const { imageName} = this.state;
+
     //если запрос пуст - не отсылать; trim - учтет пробелы слева/справа
-    if (this.state.imageName.trim() === '') {
+    if (imageName.trim() === '') {
       return alert('Please, enter what you want to find.');
     }
 
     //вызываю метод из App и предаю ему значение imageName, и он вернется в  App
-    this.props.onSubmit(this.state.imageName);
+    this.props.onSubmit(imageName);
     this.setState({ imageName: '' });
   };
 
   render() {
+    const { imageName } = this.state;
+
     return (
       <header className="searchbar">
         <form onSubmit={this.handleSubmit} className="form">
@@ -38,7 +42,7 @@ export default class Searchbar extends Component {
           <input
             className="input"
             type="text"
-            value={this.state.imageName}
+            value={imageName}
             onChange={this.handleNameChange}
             autoComplete="off"
             autoFocus
