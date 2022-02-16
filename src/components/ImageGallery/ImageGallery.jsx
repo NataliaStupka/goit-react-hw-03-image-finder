@@ -3,7 +3,7 @@ import ImagesList from '../ImageGalleryItem/ImageGalleryItem';
 import './ImageGallery.css'
 
 
-const ImageGallery = ({images}) => {
+const ImageGallery = ({images, onOpenModal}) => {
 //  console.log('Масив обьектов', images)
     return (
       
@@ -15,6 +15,7 @@ const ImageGallery = ({images}) => {
               preview={webformatURL}
               largeImage={largeImageURL}
               tags={tags}
+              onOpenModal={onOpenModal}
             />
           
           )

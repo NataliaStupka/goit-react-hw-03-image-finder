@@ -9,12 +9,11 @@ export default class Searchbar extends Component {
 
   //обновляет imageName при каждом вводе на input
   handleNameChange = event => {
-    this.setState({ imageName: event.currentTarget.value });
+    this.setState({ imageName: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
     event.preventDefault(); //нет автоматической перезагрузке
-
     const { imageName} = this.state;
 
     //если запрос пуст - не отсылать; trim - учтет пробелы слева/справа

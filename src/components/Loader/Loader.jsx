@@ -1,4 +1,28 @@
 
+import { Oval } from  'react-loader-spinner'
 
-//Компонент спинера, отображется пока идет загрузка изобаржений.
-// Используй любой готовый компонент, например https://github.com/mhnpd/react-loader-spinner или любой другой.
+
+const Loader = () => {
+    const style = {
+    display: "block",
+    margin: "0 auto",
+    };
+    
+    return (
+        
+        <Oval
+            heigth="80"
+            width="80"
+            color="blue"
+            secondaryColor="skey"
+            ariaLabel='loading'
+            wrapperStyle={style}
+            />
+       
+        
+    )
+};
+
+export default Loader;
+
+

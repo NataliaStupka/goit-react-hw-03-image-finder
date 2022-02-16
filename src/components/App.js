@@ -4,6 +4,9 @@ import api from '../api/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
+import Loader from './Loader/Loader';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'; //for Loader
+import Modal from './Modal/Modal';
 
 // const Status = {
 //   IDLE: 'idle',
@@ -16,9 +19,12 @@ class App extends Component {
   state = {
     images: [], //для приходящего масива
     query: '', //текст, что вводят в поиск
+    page: 1,
     error: null,
-    status: '',
+    status: '', // -- ? --
     isLoading: false,
+    showModal: false,
+    largeImage: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,45 +34,53 @@ class App extends Component {
     //проверка, что бы не пошло постоянное обновление
     if (prevQuery !== nextQuery) {
       // console.log('Новый запрос')
-      this.getImagesData();
+      this.setState({ isLoading: true, images: [], page: 1 }); //при новом запросе страница очищается
+      this.getImagesData(); //fetch
     }
-    //сюда же добавить скрол----------------------
+    //сюда же добавить скрол---------------- ? ------
   }
 
   getImagesData = () => {
-    const { query } = this.state;
+    const { query, page } = this.state;
     api
-      .fetchImages(query)
+      .fetchImages(query, page) // передаю значение инпута и страницу
       .then(({ hits }) => {
         console.log('вытянула масив', hits);
 
-        //? возможно лишнее, и дальше в иф заменить итемс на хит?????-----а мепну уже на галерее----
-        const items = hits.map(({ id, webformatURL, largeImageURL, tags }) => {
-          return { id, webformatURL, largeImageURL, tags };
-        }); //------------------------------------------------------------------
-
         //если пришли картинки добавляем, если нет сообщаем о пустом масиве
-        if (items.length > 0) {
+        if (hits.length > 0) {
           this.setState(prevState => {
             return {
-              images: [...prevState.images, ...items],
+              images: [...prevState.images, ...hits],
+              page: prevState.page + 1,
             };
           });
         } else {
-          alert(`По запросу '${query}' ничего не найденно.`);
+          alert(`No results found for '${query}'.`);
         }
       })
-      .catch(error => this.setState({ error }));
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
-  //метод для предачи imageQuery (что ввели в поиск) с form
-  // вызовем его в form  и передадим ему вводимое значение (imageQuery)
+  //метод для предачи query (что ввели в поиск) с form
+  // вызовем его в form  и передадим ему вводимое значение (query)
   handleFormSubmit = query => {
-    this.setState({ query });
+    this.setState({ query: query, page: 1 }); //page - что бы запрос пошел с первой страници
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal, //если true то будет false, если false то true
+    }));
+  };
+  openImage = largeImage => {
+    this.setState({ largeImage: largeImage });
+    this.toggleModal();
   };
 
   render() {
-    const { images, isLoading } = this.state;
+    const { images, isLoading, showModal, largeImage } = this.state;
     const totalItems = images.length;
     const showPlaceholder = !isLoading && totalItems === 0;
     const showReaderUI = !isLoading && totalItems > 0;
@@ -74,14 +88,18 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
+        {isLoading && <Loader />}
 
-        {isLoading && <div>Загрузка...</div>}
-        {showPlaceholder && <div>Еще нет публикаций!</div>}
-        {showReaderUI && <ImageGallery images={images} />}
+        {/* {showPlaceholder && <div>Еще нет публикаций!</div>} */}
+        {showReaderUI && (
+          <ImageGallery images={images} onOpenModal={this.openImage} />
+        )}
 
-        <Button />
-        {/* <Loader /> */}
-        {/* <Modal /> */}
+        {showReaderUI && <Button onClick={this.getImagesData} />}
+
+        {showModal && (
+          <Modal image={largeImage} onCloseModal={this.toggleModal} />
+        )}
       </div>
     );
   }
