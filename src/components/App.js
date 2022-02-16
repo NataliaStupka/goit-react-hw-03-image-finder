@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import './App.css';
 import api from '../api/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
 
 // const Status = {
 //   IDLE: 'idle',
@@ -70,14 +72,14 @@ class App extends Component {
     const showReaderUI = !isLoading && totalItems > 0;
 
     return (
-      <div>
+      <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
 
         {isLoading && <div>Загрузка...</div>}
         {showPlaceholder && <div>Еще нет публикаций!</div>}
         {showReaderUI && <ImageGallery images={images} />}
 
-        {/* <Button /> */}
+        <Button />
         {/* <Loader /> */}
         {/* <Modal /> */}
       </div>

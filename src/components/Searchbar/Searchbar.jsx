@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
+import './Searchbar.css'
 
 export default class Searchbar extends Component {
   state = {
@@ -30,17 +31,17 @@ export default class Searchbar extends Component {
     const { imageName } = this.state;
 
     return (
-      <header className="searchbar">
-        <form onSubmit={this.handleSubmit} className="form">
+      <header className="Searchbar">
+        <form onSubmit={this.handleSubmit} className="SearchForm">
           <button
             type="submit"
-            className="button">
+            className="SearchForm-button">
             {/* <span className="button-label">Search</span> */}
-            <BiSearchAlt2 />
+            <BiSearchAlt2 style={{ width: 20, height: 20 }}/>
           </button>
 
           <input
-            className="input"
+            className="SearchForm-input"
             type="text"
             value={imageName}
             onChange={this.handleNameChange}

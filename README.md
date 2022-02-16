@@ -1,5 +1,6 @@
 - НЕ ЗАБЫТЬ ПРО ТИПЫ ПРОПОВ
-- стилизация styled-components
+<!-- - стилизация styled-components (npm install --save styled-components) -->
+- стилизация css модуль
 
 - Регистрация на Pixabay. My API key: 24451783-36fc53d78d658727e466a2b4b
 
