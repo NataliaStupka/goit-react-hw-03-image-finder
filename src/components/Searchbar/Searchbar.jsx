@@ -21,7 +21,7 @@ export default class Searchbar extends Component {
       return alert('Please, enter what you want to find.');
     }
 
-    //вызываю метод из App и предаю ему значение imageName, и он вернется в  App
+    //вызываю метод из App, передаю ему значение imageName, и он вернется в  App
     this.props.onSubmit(imageName);
     this.setState({ imageName: '' });
   };

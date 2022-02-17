@@ -29,7 +29,6 @@ handleKeyDown = event => {
 
 
   render() {
-    // console.log('++++++', this.props)
     return createPortal(
       <div className="Overlay" onClick={this.handleBackdropClick}>
         <div className="Modal" >

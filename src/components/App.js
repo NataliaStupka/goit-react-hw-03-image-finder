@@ -21,11 +21,11 @@ class App extends Component {
     query: '', //текст, что вводят в поиск
     page: 1,
     error: null,
-    status: '', // -- ? --
     isLoading: false,
     showModal: false,
     largeImage: '',
     currentHitsPerPage: null,
+    // status: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -38,11 +38,12 @@ class App extends Component {
       this.setState({ isLoading: true, images: [], page: 1 }); //при новом запросе страница очищается
       this.getImagesData(); //fetch
     }
-    //сюда же добавить скрол---------------- ? ------
+    //сюда скрол----
   }
 
   getImagesData = () => {
     const { query, page } = this.state;
+
     api
       .fetchImages(query, page) // передаю значение инпута и страницу
       .then(({ hits }) => {
@@ -76,6 +77,7 @@ class App extends Component {
       showModal: !showModal, //если true то будет false, если false то true
     }));
   };
+
   openImage = largeImage => {
     this.setState({ largeImage: largeImage });
     this.toggleModal();
@@ -85,7 +87,6 @@ class App extends Component {
     const { images, isLoading, showModal, largeImage, currentHitsPerPage } =
       this.state;
     const totalItems = images.length; // сколько картинок на странице с учетом LoadMore
-    const showPlaceholder = !isLoading && totalItems === 0;
     const showReaderUI = !isLoading && totalItems > 0;
     // console.log('Количество images за одну загрузку:', currentHitsPerPage);
 
@@ -94,7 +95,6 @@ class App extends Component {
         <Searchbar onSubmit={this.handleFormSubmit} />
         {isLoading && <Loader />}
 
-        {/* {showPlaceholder && <div>Еще нет публикаций!</div>} */}
         {showReaderUI && (
           <>
             <ImageGallery images={images} onOpenModal={this.openImage} />

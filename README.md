@@ -1,5 +1,5 @@
-- НЕ ЗАБЫТЬ ПРО ТИПЫ ПРОПОВ
 <!-- - стилизация styled-components (npm install --save styled-components) -->
+
 - стилизация css модуль
 - react-loader-spinner (npm install react-loader-spinner --save)
 

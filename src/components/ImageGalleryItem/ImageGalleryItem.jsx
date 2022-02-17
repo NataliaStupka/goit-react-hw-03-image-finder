@@ -1,4 +1,5 @@
 //Компонент элемента списка с изображением
+import PropTypes from 'prop-types';
 import './ImageGalleryItem.css';
 
 const ImagesList = ({ preview, largeImage, tags, onOpenModal }) => {
@@ -13,5 +14,12 @@ const ImagesList = ({ preview, largeImage, tags, onOpenModal }) => {
       </li>
   )
 };
+
+ImagesList.propTypes = {
+  preview: PropTypes.string.isRequired,
+  largeImage: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  onOpenModal:  PropTypes.func.isRequired,
+}
 
 export default ImagesList;
