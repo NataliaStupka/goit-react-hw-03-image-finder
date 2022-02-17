@@ -1,9 +1,13 @@
 import { Component } from 'react';
+import { createPortal } from 'react-dom'; //метод из react дома, для модального окна
 import './Modal.css';
+
+//для модального окна
+const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);  //для закрытия при нажатие на Esc
+    window.addEventListener('keydown', this.handleKeyDown);  //закрытиe при Esc
   }
  componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);  //чистим за собой слушателя
@@ -16,7 +20,7 @@ handleKeyDown = event => {
     }
   };
 
- //метод для закрытия модалки при кликанье на бэкдроппе
+ //закрытиe модалки при клике на бэкдроп
   handleBackdropClick = event => {
     if (event.currentTarget === event.target) {
       this.props.onCloseModal();
@@ -25,19 +29,16 @@ handleKeyDown = event => {
 
 
   render() {
-    console.log('++++++', this.props)
-    return (
+    // console.log('++++++', this.props)
+    return createPortal(
       <div className="Overlay" onClick={this.handleBackdropClick}>
         <div className="Modal" >
           <img src={this.props.image} alt="" />
         </div>
-      </div>
-    
+      </div>,
+    modalRoot,
     );
-
-
   }
-
 }
 
 

@@ -4,3 +4,12 @@
   grid-gap: 16px;
   padding-bottom: 24px;
 }
+
+.report {
+  text-align: center;
+  font-size: 20px;
+  line-height: 24px;
+  font-style: oblique;
+  font-weight: 500;
+  margin: 0;
+}

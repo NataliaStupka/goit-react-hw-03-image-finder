@@ -25,6 +25,7 @@ class App extends Component {
     isLoading: false,
     showModal: false,
     largeImage: '',
+    currentHitsPerPage: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,7 +46,7 @@ class App extends Component {
     api
       .fetchImages(query, page) // передаю значение инпута и страницу
       .then(({ hits }) => {
-        console.log('вытянула масив', hits);
+        // console.log('вытянула масив', hits);
 
         //если пришли картинки добавляем, если нет сообщаем о пустом масиве
         if (hits.length > 0) {
@@ -53,6 +54,7 @@ class App extends Component {
             return {
               images: [...prevState.images, ...hits],
               page: prevState.page + 1,
+              currentHitsPerPage: hits.length,
             };
           });
         } else {
@@ -80,10 +82,12 @@ class App extends Component {
   };
 
   render() {
-    const { images, isLoading, showModal, largeImage } = this.state;
-    const totalItems = images.length;
+    const { images, isLoading, showModal, largeImage, currentHitsPerPage } =
+      this.state;
+    const totalItems = images.length; // сколько картинок на странице с учетом LoadMore
     const showPlaceholder = !isLoading && totalItems === 0;
     const showReaderUI = !isLoading && totalItems > 0;
+    // console.log('Количество images за одну загрузку:', currentHitsPerPage);
 
     return (
       <div className="App">
@@ -92,10 +96,17 @@ class App extends Component {
 
         {/* {showPlaceholder && <div>Еще нет публикаций!</div>} */}
         {showReaderUI && (
-          <ImageGallery images={images} onOpenModal={this.openImage} />
+          <>
+            <ImageGallery images={images} onOpenModal={this.openImage} />
+            {currentHitsPerPage < 12 && (
+              <p className="report">All found pictures are loaded.</p>
+            )}
+          </>
         )}
 
-        {showReaderUI && <Button onClick={this.getImagesData} />}
+        {showReaderUI && currentHitsPerPage === 12 && (
+          <Button onClick={this.getImagesData} />
+        )}
 
         {showModal && (
           <Modal image={largeImage} onCloseModal={this.toggleModal} />
