@@ -28,7 +28,7 @@ class App extends Component {
     // status: '',
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const prevQuery = prevState.query;
     const nextQuery = this.state.query;
 
